@@ -20,11 +20,11 @@ function Results(props) {
 
   const { Answers } = props;
 
-  let iLeaderShip = (parseInt(Answers[0]) + parseInt(Answers[1]) + parseInt(Answers[2]) + parseInt(Answers[3]) + parseInt(Answers[4]) + parseInt(Answers[5])) / 6;
-  let iPeople = ((Answers[6]) + (Answers[7]) + (Answers[8]) + (Answers[9]) + (Answers[10]) + (Answers[11])) / 6;
-  let iMoney = ((Answers[12]) + (Answers[13]) + (Answers[14]) + (Answers[15]) + (Answers[16]) + (Answers[17])) / 6;
-  let iStrategy = ((Answers[18]) + (Answers[19]) + (Answers[20]) + (Answers[21]) + (Answers[22]) + (Answers[23])) / 6;
-  let iExecution = ((Answers[24]) + (Answers[25]) + (Answers[26]) + (Answers[27]) + (Answers[28]) + (Answers[29])) / 6;
+  let iLeaderShip = Math.round(((Answers[0]) + (Answers[1]) + (Answers[2]) + (Answers[3]) + (Answers[4]) + (Answers[5])) / 6);
+  let iPeople = Math.round(((Answers[6]) + (Answers[7]) + (Answers[8]) + (Answers[9]) + (Answers[10]) + (Answers[11])) / 6);
+  let iMoney = Math.round(((Answers[12]) + (Answers[13]) + (Answers[14]) + (Answers[15]) + (Answers[16]) + (Answers[17])) / 6);
+  let iStrategy = Math.round(((Answers[18]) + (Answers[19]) + (Answers[20]) + (Answers[21]) + (Answers[22]) + (Answers[23])) / 6);
+  let iExecution = Math.round(((Answers[24]) + (Answers[25]) + (Answers[26]) + (Answers[27]) + (Answers[28]) + (Answers[29])) / 6);
 
 
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
