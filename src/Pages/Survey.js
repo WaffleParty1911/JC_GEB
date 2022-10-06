@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 let arrQuestions = ["Your boss listens to your opinions.",
     "Your boss empathizes with obstacles in your work.",
@@ -44,19 +45,6 @@ let iExecution = 0;
 
 
 let border = "hidden";
-
-let bDisabledPrev = true;
-
-
-// function valuetext(value) {
-//    
-//     arrAnswers[i] = value;
-//     return value;
-// }
-
-
-
-
 
 function Survey(props) {
     const { Answers, setAnswers } = props;
@@ -145,6 +133,7 @@ function Survey(props) {
                             size={"medium"}
                             max={100}
                             min={0}
+                            
                             step={1}
                             value={Answers[CurrentQuestion]}
                             onChange={event => {
@@ -169,7 +158,7 @@ function Survey(props) {
 
 
                 <Box
-                    marginTop={-3.5}
+                    
                     display={"flex"}
                     justifyContent={"center"}
                     alignItems={"center"}
@@ -177,54 +166,58 @@ function Survey(props) {
                 >
 
                     <Box
-                        marginRight={10}
-                        width={70}
-                        border={border}
-                        height={25}>
+                       
+                       >
+                       
 
 
-                        <button
+                        <Button
                             id={"btnPrev"}
+                            size={"large"}
                             disabled={CurrentQuestion == 0}
                             onClick={() => setQuestion(CurrentQuestion - 1)}
-
+                            variant={"outlined"}
                         >
                             Previous
-                        </button>
+                        </Button>
                     </Box>
 
 
                     <Box
 
-                        width={43}
-                        height={25}
-                        border={border}
+                      marginLeft={45}
                     >
-                        <button
+                        <Button
+                            width={70}
                             id={"btnNext"}
                             disabled={CurrentQuestion == 29}
                             onClick={() => setQuestion(CurrentQuestion + 1)}
+                            variant={"outlined"}
+                            size={"large"}
+
+
                         >
                             Next
-                        </button>
+                        </Button>
                     </Box>
 
 
                 </Box>
                 <Box
-                    border={border}
-
-                    marginTop={20}
-                    marginLeft={130}
+                     alignContent={"center"} display={"flex"} justifyContent={"center"} marginTop={5}
+     
+                    
                 >
-                    <button
+                    <Button
 
                         id={"btnSubmit"}
                         onClick={() => Navigate("/Results")}
                         disabled={CurrentQuestion != 29}
-
+                        variant={"outlined"}
+                        size={"large"}
+                        
                     >Submit
-                    </button>
+                    </Button>
                 </Box>
             </header>
             <script src={"Script.js"} />

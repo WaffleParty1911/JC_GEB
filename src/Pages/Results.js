@@ -12,7 +12,7 @@ import { PolarArea } from 'react-chartjs-2';
 import Box from '@mui/material/Box';
 import { maxHeight } from '@mui/system';
 import jsPDF from "jspdf";
-import {Button, Grid, Icon, TextField} from '@mui/material';
+import { Button, Grid, Icon, TextField } from '@mui/material';
 
 
 
@@ -30,9 +30,9 @@ function Results(props) {
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
   const data = {
-    labels: ['Leadership ' + iLeaderShip, 'People '+iPeople, 'Money '+ iMoney, 'Strategy '+ iStrategy, 'Execution '+ iExecution],
-    
-  
+    labels: ['Leadership ' + iLeaderShip, 'People ' + iPeople, 'Money ' + iMoney, 'Strategy ' + iStrategy, 'Execution ' + iExecution],
+
+
 
     datasets: [
       {
@@ -47,66 +47,77 @@ function Results(props) {
           'rgba(153, 102, 255, 0.5)',//purple
         ],
         borderWidth: 0,
-        
-      
+
+
       },
     ],
   };
 
-  ChartJS.overrides["polarArea"].plugins.legend.position= 'right';
-  ChartJS.overrides["polarArea"].plugins.legend.labels.padding= 50;
+  ChartJS.overrides["polarArea"].plugins.legend.position = 'right';
+  ChartJS.overrides["polarArea"].plugins.legend.labels.padding = 50;
   ChartJS.overrides["polarArea"].plugins.tooltip.enabled = false;
 
   //ChartJS.overrides["polarArea"].options.scales["r"].ticks= 100;
 
 
 
-const pdfGenerate=()=>{
+  const pdfGenerate = () => {
 
-const doc = new jsPDF();
+    const doc = new jsPDF();
 
-//doc.addChart(ChartJS);
+    //doc.addChart(ChartJS);
 
 
-doc.text("Your results:", 10, 10);
+    doc.text("Your results:", 10, 10);
 
-const canvas = document.getElementById("PolarChart");
+    const canvas = document.getElementById("PolarChart");
 
-canvas.fillStyle = "green";
+    canvas.fillStyle = "green";
 
-const canvasImage = canvas.toDataURL('image/png',0.5);
+    const canvasImage = canvas.toDataURL('image/png', 0.5);
 
-doc.addImage(canvasImage,'PNG',15,15, 185,185);
+    doc.addImage(canvasImage, 'PNG', 15, 15, 185, 185);
 
-doc.save("OrganizationalHealthResults.pdf");
+    doc.save("OrganizationalHealthResults.pdf");
 
-}
+  }
 
 
   return (
 
     <header className="CodeGeneration-header">
-       <Box  marginTop={5} display={"flex"}
-      justifyContent={"center"} alignContent={"center"}>
-    <h1>
-Your Results:
-    </h1>
-    </Box>
-    <Box  display={"flex"}
-      justifyContent={"center"} alignContent={"center"}>
-         
-      <Box width={800}   display={"flex"}
+      <Box marginTop={0} display={"flex"}
         justifyContent={"center"} alignContent={"center"}>
-         
-        <PolarArea data={data} id={"PolarChart"}/>
+        <h1>
+          Your Results:
+        </h1>
       </Box>
-    </Box>
+      <Box display={"flex"}
+        justifyContent={"center"} alignContent={"center"}>
 
-    <Button
-    onClick={pdfGenerate}
-    >
-    Download Results
-    </Button>
+        <Box width={800} display={"flex"}
+          justifyContent={"center"} alignContent={"center"}>
+
+          <PolarArea data={data} id={"PolarChart"} />
+        </Box>
+      </Box>
+
+      <Box
+        alignContent={"center"} display={"flex"} justifyContent={"right"} paddingBottom={10}
+
+      >
+        <Box
+        marginRight={60}
+        >
+        <Button
+        variant={"outlined"}
+        size={"large"}
+          onClick={pdfGenerate}
+        >
+          Download Results
+        </Button>
+        </Box>
+      </Box>
     </header>
   );
 }
