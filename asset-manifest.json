@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/JC_GEB/static/css/main.073c9b0a.css",
+    "main.js": "/JC_GEB/static/js/main.2daaf002.js",
+    "static/js/498.5e9a6c19.chunk.js": "/JC_GEB/static/js/498.5e9a6c19.chunk.js",
+    "static/js/703.36a7d379.chunk.js": "/JC_GEB/static/js/703.36a7d379.chunk.js",
+    "static/js/541.c1c2c122.chunk.js": "/JC_GEB/static/js/541.c1c2c122.chunk.js",
+    "static/media/logo.svg": "/JC_GEB/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/JC_GEB/index.html",
+    "main.073c9b0a.css.map": "/JC_GEB/static/css/main.073c9b0a.css.map",
+    "main.2daaf002.js.map": "/JC_GEB/static/js/main.2daaf002.js.map",
+    "498.5e9a6c19.chunk.js.map": "/JC_GEB/static/js/498.5e9a6c19.chunk.js.map",
+    "703.36a7d379.chunk.js.map": "/JC_GEB/static/js/703.36a7d379.chunk.js.map",
+    "541.c1c2c122.chunk.js.map": "/JC_GEB/static/js/541.c1c2c122.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.2daaf002.js"
+  ]
+}
