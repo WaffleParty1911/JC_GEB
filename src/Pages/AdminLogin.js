@@ -88,8 +88,8 @@ function AdminLogin() {
                 </Box>
 
                 <Box display={"flex"} alignContent={"center"} justifyContent={"center"} marginTop={10}>
-                    <Button id={"btnLogin"} onClick={() => btnClick()}>
-                        Start Quiz Now!
+                    <Button id={"btnLogin"} onClick={() => btnClick()} variant="outlined" size="large">
+                        Login
                     </Button>
                 </Box>
             </header>

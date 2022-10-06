@@ -53,8 +53,6 @@ function InputCode() {
         }
     }
 
-    //             window.location = ("http://localhost:3000/Survey");
-
     return (
         <div className="CodeGeneration">
             <header className="CodeGeneration-header">
@@ -93,7 +91,7 @@ function InputCode() {
                 </Box>
 
                 <Box display={"flex"} alignContent={"center"} justifyContent={"center"} marginTop={10}>
-                    <Button id={"btnCheckCode"} onClick={() => btnClick()}>
+                    <Button id={"btnCheckCode"} onClick={() => btnClick()} variant="outlined" size="large">
                         Start Quiz Now!
                     </Button>
                 </Box>

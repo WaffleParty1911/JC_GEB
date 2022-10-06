@@ -15,7 +15,7 @@ function HomePage() {
 
                 <Box marginTop={5} display={"flex"} justifyContent={"center"} alignContent={"center"}>
 
-                    <Box height={400} width={200} border={"solid"} marginTop={5} display={"flex"} marginRight={2}
+                    <Box height={400} width={200} marginTop={5} display={"flex"} marginRight={2}
                          justifyContent={"center"} alignContent={"center"}>
                         <Button
                             id={"btnAdmin"}
@@ -27,7 +27,7 @@ function HomePage() {
                             JC GEB Admin
                         </Button>
                     </Box>
-                    <Box height={400} width={200} border={"solid"} marginTop={5} display={"flex"}
+                    <Box height={400} width={200} marginTop={5} display={"flex"}
                          justifyContent={"center"} alignContent={"center"}>
                         <Button
                             id={"btnSurvey"}
