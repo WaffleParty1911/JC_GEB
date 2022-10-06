@@ -142,7 +142,6 @@ function Survey(props) {
                                 newAnswers[CurrentQuestion] = value;
                                 setAnswers(newAnswers);
                             }}
-                            valueLabelDisplay={"auto"}
                             sx={{ mb: 1 }}
 
 
