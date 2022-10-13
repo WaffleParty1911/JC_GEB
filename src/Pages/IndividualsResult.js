@@ -15,25 +15,39 @@ import { maxHeight } from '@mui/system';
 import jsPDF from "jspdf";
 import { Button, Grid, Icon, TextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
+import { useNavigate } from "react-router-dom";
 
 
 
 
-function Results(props) {
-
-  const { Answers } = props;
-
-  let iLeaderShip = parseInt((Answers[0] + Answers[1] + Answers[2] + Answers[3] + Answers[4] + Answers[5]) / 6);
-  let iPeople = parseInt((Answers[6] + Answers[7] + Answers[8] + Answers[9] + Answers[10] + Answers[11]) / 6);
-  let iMoney = parseInt((Answers[12] + Answers[13] + Answers[14] + Answers[15] + Answers[16] + Answers[17]) / 6);
-  let iStrategy = parseInt((Answers[18] + Answers[19] + Answers[20] + Answers[21] + Answers[22] + Answers[23]) / 6);
-  let iExecution = parseInt((Answers[24] + Answers[25] + Answers[26] + Answers[27] + Answers[28] + Answers[29]) / 6);
+function IndividualsResult() {
+  const [result, setResult] = React.useState([]);
+  const Navigate = useNavigate();
 
 
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
+  React.useEffect(() => {
+
+
+    let link = window.location.href;
+    let id = link.split("Results/").pop();
+    const requestOpt = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    }
+    fetch('http://127.0.0.1:8000/hiho_admin/get_response/' + id, requestOpt)
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          setResult(result.response)
+        }
+      });
+
+  }, []);
+
   const data = {
-    labels: ['Leadership ' + iLeaderShip, 'People ' + iPeople, 'Money ' + iMoney, 'Strategy ' + iStrategy, 'Execution ' + iExecution],
+    labels: ['Leadership ' + result.leadership_score, 'People ' + result.people_score, 'Money ' + result.money_score, 'Strategy ' + result.strategy_score, 'Execution ' + result.execution_score],
 
 
 
@@ -41,14 +55,20 @@ function Results(props) {
       {
         label: '# of Votes',
 
-        data: [iLeaderShip, iPeople, iMoney, iStrategy, iExecution],
+        data: [result.leadership_score, result.people_score, result.money_score, result.strategy_score, result.execution_score],
         backgroundColor: [
           'rgba(75, 192, 255, 0.5)',//blue
           'rgba(0, 255, 0, 0.5)',  //Green
           'rgba(253, 151, 0, 0.5)',//orange
           'rgba(247, 223, 30, 0.5)', //Yellow 247, 30, 223
           'rgba(153, 102, 255, 0.5)',//purple
-        ],
+        ], borderColor: [
+          'rgba(75, 192, 255, 0.5)',//blue
+          'rgba(0, 255, 0, 0.5)',  //Green
+          'rgba(253, 151, 0, 0.5)',//orange
+          'rgba(247, 223, 30, 0.5)', //Yellow 247, 30, 223
+          'rgba(153, 102, 255, 0.5)',],
+
         borderWidth: 0,
 
       },
@@ -57,7 +77,10 @@ function Results(props) {
 
   ChartJS.overrides["polarArea"].plugins.legend.position = 'right';
   ChartJS.overrides["polarArea"].plugins.legend.labels.padding = 50;
-  ChartJS.overrides["polarArea"].plugins.tooltip.enabled = false;
+  ChartJS.overrides["polarArea"].plugins.tooltip.enabled=false;
+
+  //ChartJS.overrides["polarArea"].options.scales["r"].ticks= 100;
+
 
 
   const pdfGenerate = () => {
@@ -71,7 +94,7 @@ function Results(props) {
 
     const canvas = document.getElementById("PolarChart");
 
-    canvas.fillStyle = "green";
+
 
     const canvasImage = canvas.toDataURL('image/png', 0.5);
 
@@ -81,6 +104,11 @@ function Results(props) {
     doc.save("OrganizationalHealthResults.pdf");
 
   }
+  const Traverse = () => {
+
+    Navigate("/CurrentSurveys/");
+
+  };
 
 
   return (
@@ -92,19 +120,25 @@ function Results(props) {
       <Box marginTop={-30} display={"flex"}
         justifyContent={"center"} alignContent={"center"}>
         <h1>
-          Your Results:
+          Results:
         </h1>
       </Box>
       <Box display={"flex"} marginLeft={22}
         justifyContent={"center"} alignContent={"center"}>
 
-        <Box width={800} display={"flex"}
+        <Box width={800} display={"flex"} marginTop={-5}
           justifyContent={"center"} alignContent={"center"}>
 
           <PolarArea data={data} id={"PolarChart"} />
         </Box>
       </Box>
-      <Box display={"flex"} justifyContent={"center"} alignContent={"center"} marginTop={-5}>
+
+      <Box alignContent={"center"} display={"flex"} justifyContent={"left"} marginLeft={25}>
+        <Button variant="contained" color='primary' size="medium" onClick={() => Traverse()}>
+          Back
+        </Button>
+      </Box>
+      <Box display={"flex"} justifyContent={"center"} alignContent={"center"}marginTop={-5}>
 
 
 
@@ -118,8 +152,9 @@ function Results(props) {
 
 
       </Box>
+
     </header>
   );
 }
 
-export default Results;
+export default IndividualsResult;

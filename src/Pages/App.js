@@ -1,7 +1,7 @@
 import './App.css';
-import {BrowserRouter, Routes, Route}
+import { BrowserRouter, Routes, Route }
     from 'react-router-dom';
-    import {useState} from "react";
+import { useState } from "react";
 import InputCode from './InputCode';
 import Survey from "./Survey";
 import CodeGeneration from "./CodeGeneration";
@@ -12,40 +12,39 @@ import CurrentSurveys from "./CurrentSurveys";
 import Chart from "./Chart";
 import React from 'react';
 import Summaries from './Summaries';
-import IndividualResults from './IndividualResults';
+import IndividualsResult from "./IndividualsResult";
 
 
-const arrAnswers = [0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const arrAnswers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 
 function App() {
 
-    const[Answers, setAnswers] = useState(arrAnswers);
+    const [Answers, setAnswers] = useState(arrAnswers);
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/JC_GEB/"} element={<HomePage/>}/>
+                <Route path={"/"} element={<HomePage />} />
 
-                <Route path="/SignUp" element={<InputCode/>}/>
+                <Route path="/SignUp/:survey_id" element={<InputCode />} />
 
-                <Route path="/Survey" element={<Survey Answers = {Answers} setAnswers={setAnswers} />}/>
+                <Route path="/Survey/:survey_id" element={<Survey Answers={Answers} setAnswers={setAnswers} />} />
 
-                <Route path="/CodeGeneration" element={<CodeGeneration/>}/>
+                <Route path="/CodeGeneration" element={<CodeGeneration />} />
 
-                <Route path="/Results" element={<Results Answers = {Answers} />}/>
+                <Route path="/Results" element={<Results Answers={Answers} />} />
 
-                <Route path="/AdminLogin" element={<AdminLogin/>}/>
+                <Route path="/Results/:response_id" element={<IndividualsResult />} />
 
-                <Route path="/CurrentSurveys" element={<CurrentSurveys/>}/>
+                <Route path="/AdminLogin" element={<AdminLogin />} />
 
-                <Route path="/Chart" element={<Chart/>}/>
+                <Route path="/CurrentSurveys" element={<CurrentSurveys />} />
 
-                <Route path="/Summaries" element={<Summaries/>}/>
+                <Route path="/Chart" element={<Chart />} />
 
-                <Route path="/IndividualResults" element={<IndividualResults/>}/>
-
+                <Route path="/Summaries/:survey_id" element={<Summaries />} />
 
             </Routes>
         </BrowserRouter>

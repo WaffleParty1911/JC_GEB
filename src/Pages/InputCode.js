@@ -1,7 +1,7 @@
-import logo from './logo.svg';
-import { BrowserRouter as Router, Routes, Route, useNavigate }
+import logo from './jc_geb.png';
+import inputCode from './inputCodeImg.png'
+import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import * as React from "react";
@@ -9,9 +9,19 @@ import { Button, Grid, TextField } from '@mui/material';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import { useState } from 'react';
 
 
 function InputCode() {
+
+    let bName = false;
+    let bEmail = false;
+    let bCode = false;
 
     const style = {
         width: '100%',
@@ -20,83 +30,159 @@ function InputCode() {
 
     };
 
-    const [Email, setEmail] = useState('');
-    const [Name, setName] = useState('');
-    const Navigate = useNavigate();
 
 
+    function CheckName(name) {
+        if (name.length == 0) {
+            window.alert("Please fill in the 'name' field.");
+            bName = false;
 
-
-    const btnClick = () => {
-        console.log(Name);
-        console.log(Email);
-
-        if ((Name != "") && (Email != "")) {
-
-            //-------------------
-
-            //  Send Name and Email to backend here
-
-            //-------------------
-
-
-
-            Navigate('/Survey');
         } else {
-            if ((Name == "") &&(Email == "")) {
-                window.alert("Please feel in the 'name' and 'email' field");
-            } else if (Name =="") {
-                window.alert("Please feel in the 'name' field");
-            } else {
-                window.alert("Please feel in the 'email' field");
-            }
+            bName = true;
+
         }
     }
 
+    function CheckEmail(email) {
+        if (email.length == 0) {
+            window.alert("Please fill in the 'email' field.");
+            bEmail = false;
+
+        } else {
+            bEmail = true;
+        }
+    }
+
+    const [Name, setName] = useState(0);
+    const [Email, setEmail] = useState(0);
+    let name;
+    let email;
+    let link;
+    let id;
+
+    const IndividualDetails = () => {
+        if ((Name == "") && (Email == "")) {
+            window.alert("'Name' and 'Email' fields empty");
+        } else if ((Name == "") && (Email != "")) {
+            window.alert("'Name' field empty");
+        } else if ((Name != "") && (Email == "")) {
+            window.alert("'Email' field empty");
+        } else {
+            // Make backend check for username and password here.
+            //---------------------------
+            link = window.location.href;
+            id = link.split("SignUp/").pop();
+            const requestOpt = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    'id': id
+                }),
+            }
+            fetch('http://127.0.0.1:8000/survey/is_active', requestOpt)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        localStorage.setItem("name", Name);
+                        localStorage.setItem("email", Email);
+                        window.location = ("http://localhost:3000/Survey/" + id);
+                    } else {
+                        alert(result.message);
+                    }
+                });
+            //---------------------------
+        }
+    }
+
+
     return (
-        <div className="CodeGeneration">
-            <header className="CodeGeneration-header">
-                <Box alignContent={"center"} display={"flex"} justifyContent={"center"}>
+        <header className="CodeGeneration-header">
+            <Box marginTop={-15} display={"flex"} justifyContent={"left"} alignContent={"center"}>
+                <img src={logo} alt='logo' />
+            </Box>
+
+          
+                <Box marginTop={-25} alignContent={"center"} display={"flex"} justifyContent={"center"}>
                     <h1>
-                        Welcome to the HIHO Organizational health survey
+                        Welcome to the JC GEB survey
                     </h1>
                 </Box>
-                <Box alignContent={"center"} display={"flex"} justifyContent={"center"} marginTop={5}>
-                    <List sx={{ style, justifySelf: "center" }} component="nav" aria-label="mailbox folders">
 
-                        <ListItemText primary="Please take note of a few things:" />
+                <Box marginLeft={-50} display={"flex"} justifyContent={"center"} marginTop={5}>
+                    <Card sx={{ maxWidth: 1000 }}>
+                        <CardContent>
+                            <Box marginTop={2} display={"flex"} justifyContent={"center"} alignContent={"center"}>
+                                <h2>
+                                    Sign In
+                                </h2>
+                            </Box>
+                            <Box marginTop={5} display={"flex"} justifyContent={"center"} alignContent={"center"}>
+                                <TextField
+                                    onChange={
+                                        event => {
+                                            const { value } = event.target;
+                                            setName(value);
+                                        }}
+                                 
+                                    id={"txtName"} placeholder={"name"} autoFocus={true} required={true}
+                                    helperText={"Required *"}>
+                                    Insert Code Here
+                                </TextField>
+                            </Box>
 
-                        <Divider light />
+                            <Box marginTop={2} display={"flex"} justifyContent={"center"} alignContent={"center"}>
+                                <TextField
+                                    onChange={
+                                        event => {
+                                            const { value } = event.target;
+                                            setEmail(value);
+                                        }}
+                                    id={"txtEmail"} placeholder={"email"} required={true} helperText={"Required *"}>
+                                    Insert Code Here
+                                </TextField>
+                            </Box>
 
+                            {/* <Box marginTop={5} display={"flex"} justifyContent={"center"} alignContent={"center"}>
+                    <TextField id={"txtCode"} helperText={"Optional *"} placeholder={"0000#0000"}
+                    >Insert Code Here</TextField>
+                </Box> */}
 
-                        <ListItemText primary="- These surveys are anonymous." />
-
-
-                        <ListItemText
-                            primary="- We do require a name and email, however this is for our own internal use." />
-
-                    </List>
+                            <Box display={"flex"} alignContent={"center"} justifyContent={"center"} marginTop={2}>
+                                <Button id={"btnCheckCode"} onClick={() => IndividualDetails()}>
+                                    Start Quiz Now!
+                                </Button>
+                            </Box>
+                        </CardContent>
+                    </Card>
                 </Box>
 
-                <Box marginTop={5} display={"flex"} justifyContent={"center"} alignContent={"center"}>
-                    <TextField id={"txtName"} placeholder={"name"} autoFocus={true} required={true} helperText={"Required *"} onChange={e => setName(e.target.value)}>
-                        Insert Code Here
-                    </TextField>
+                <Box marginLeft={80} display={"flex"} justifyContent={"center"} marginTop={-50}>
+                    <img src={inputCode} alt="admin" height="400" />
                 </Box>
 
-                <Box marginTop={5} display={"flex"} justifyContent={"center"} alignContent={"center"}>
-                    <TextField id={"txtEmail"} placeholder={"email"} required={true} helperText={"Required *"} onChange={e => setEmail(e.target.value)}>
-                        Insert Code Here
-                    </TextField>
+                <Box alignContent={"center"} display={"flex"} justifyContent={"center"} marginTop={7}>
+                    <Card sx={{ maxWidth: 5000 }}>
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="span">
+                                Please take note of the following things:
+                            </Typography>
+                            <Typography component="span" color="text.secondary">
+                                <List>
+                                    <ListItemText primary="- These surveys are anonymous." />
+
+
+                                    <ListItemText
+                                        primary="- We do require a name and email, however this is for our own internal use." />
+
+
+
+                                </List>
+                            </Typography>
+                        </CardContent>
+                    </Card>
                 </Box>
 
-                <Box display={"flex"} alignContent={"center"} justifyContent={"center"} marginTop={10}>
-                    <Button id={"btnCheckCode"} onClick={() => btnClick()} variant="outlined" size="large">
-                        Start Quiz Now!
-                    </Button>
-                </Box>
             </header>
-        </div>
     );
 }
 
