@@ -26,7 +26,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={"/"} element={<HomePage />} />
+                <Route path={"/JC_GEB"} element={<HomePage />} />
 
                 <Route path="/SignUp/:survey_id" element={<InputCode />} />
 
