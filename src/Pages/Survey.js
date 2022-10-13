@@ -128,39 +128,9 @@ function Survey(props) {
         iMoney = parseInt((Answers[12] + Answers[13] + Answers[14] + Answers[15] + Answers[16] + Answers[17]) / 6);
         iStrategy = parseInt((Answers[18] + Answers[19] + Answers[20] + Answers[21] + Answers[22] + Answers[23]) / 6);
         iExecution = parseInt((Answers[24] + Answers[25] + Answers[26] + Answers[27] + Answers[28] + Answers[29]) / 6);
-        
-        let link = window.location.href;
-        let id = link.split("Survey/").pop();
-        let lsname = "Anonymous";
-        let lsemail = "Anonymous";
-        if (id === "Individuals") {
-            lsname = localStorage.getItem('name');
-            lsemail = localStorage.getItem('email');
-        }
-        const requestOpt = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "survey_id": id,
-                "name":lsname,
-                "email":lsemail,
-                "leadership_score":iLeaderShip,
-                "people_score":iPeople,
-                "money_score":iMoney,
-                "strategy_score":iStrategy,
-                "execution_score":iExecution
-            }),
-        }
-        fetch('http://127.0.0.1:8000/survey/submit_response', requestOpt)
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    Navigate("/Results")
-                } else {
-                    alert(result.message);
-                }
-            });
-    };
+
+        Navigate("/Results/Individual");
+    }
 
 
 

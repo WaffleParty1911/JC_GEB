@@ -15,6 +15,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -24,6 +26,8 @@ import { useState } from 'react';
 
 function AdminLogin() {
 
+
+    
     const style = {
         width: '100%',
         maxWidth: 360,
@@ -31,6 +35,7 @@ function AdminLogin() {
 
     };
 
+    const Navigate = useNavigate();
 
     const [username, setusername] = useState(0);
     const [password, setpassword] = useState(0);
@@ -47,23 +52,8 @@ function AdminLogin() {
         } else if (password == "") {
             window.alert("'Password' field empty");
         } else {
-            const requestOpt = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    'name': username,
-                    'password': password
-                }),
-            }
-            fetch('http://127.0.0.1:8000/hiho_admin/login', requestOpt)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        window.location = "http://localhost:3000/CurrentSurveys";
-                    } else {
-                        alert(result.message);
-                    }
-                });
+            Navigate("/CurrentSurveys");
+
         }
 
 

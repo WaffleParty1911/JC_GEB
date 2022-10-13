@@ -1,6 +1,6 @@
 import logo from './jc_geb.png';
 import inputCode from './inputCodeImg.png'
-import { BrowserRouter as Router, Routes, Route }
+import { BrowserRouter as Router, Routes, Route, Navigate }
     from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -15,6 +15,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 
 function InputCode() {
@@ -31,6 +33,7 @@ function InputCode() {
     };
 
 
+    const Navigate = useNavigate();
 
     function CheckName(name) {
         if (name.length == 0) {
@@ -70,26 +73,7 @@ function InputCode() {
         } else {
             // Make backend check for username and password here.
             //---------------------------
-            link = window.location.href;
-            id = link.split("SignUp/").pop();
-            const requestOpt = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    'id': id
-                }),
-            }
-            fetch('http://127.0.0.1:8000/survey/is_active', requestOpt)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        localStorage.setItem("name", Name);
-                        localStorage.setItem("email", Email);
-                        window.location = ("http://localhost:3000/Survey/" + id);
-                    } else {
-                        alert(result.message);
-                    }
-                });
+           Navigate("/Survey/Individual");
             //---------------------------
         }
     }
